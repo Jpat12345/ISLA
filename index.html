@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes heartbeat {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.4); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
+    }
+    @keyframes sparkle {
+      0% { opacity: 0; transform: scale(0) rotate(0deg); }
+      50% { opacity: 0.9; transform: scale(1.2) rotate(180deg); }
+      100% { opacity: 0; transform: scale(0) rotate(360deg); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes photoRain {
+      0% { 
+        transform: translateY(0) translateX(0) scale(0.5) rotate(0deg); 
+        opacity: 0; 
+      }
+      20% { 
+        transform: translateY(10vh) translateX(calc(20px * var(--sway-direction))) scale(1) rotate(calc(45deg * var(--rotate-direction))); 
+        opacity: 1; 
+      }
+      50% { 
+        transform: translateY(50vh) translateX(calc(50px * var(--sway-direction))) scale(1) rotate(calc(180deg * var(--rotate-direction))); 
+        opacity: 0.7; 
+      }
+      100% { 
+        transform: translateY(calc(100vh + 100%)) translateX(0) scale(0.9) rotate(calc(360deg * var(--rotate-direction))); 
+        opacity: 0.3; 
+      }
+    }
+    body {
+      background: linear-gradient(135deg, #fce7f3, #e9d5ff);
+      background-size: 200% 200%;
+      animation: gradientFlow 15s ease infinite;
+    }
+    .heart-icon {
+      display: inline-block;
+      animation: heartbeat 1s ease-in-out infinite;
+    }
+    .photobooth {
+      background: #fff;
+      border: 8px solid #fff;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.1);
+      transform: rotate(-3deg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .photobooth:nth-child(3) {
+      transform: rotate(3deg);
+    }
+    .photobooth:hover {
+      transform: translateY(-8px) rotate(0deg);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    }
+    .glassmorphic {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .sparkle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23fb7185"><path d="M12 2l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z"/></svg>');
+      background-size: cover;
+      pointer-events: none;
+      animation: sparkle 0.6s ease-out forwards;
+    }
+    .animate-text {
+      animation: fadeIn 1s ease-out forwards;
+    }
+    .falling-photo {
+      position: absolute;
+      width: 70px;
+      height: 105px;
+      object-fit: cover;
+      animation: photoRain 16s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+      background: #fff;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center font-[Playfair Display,serif] p-8">
+  <div class="flex flex-col md:flex-row items-center justify-center gap-10 relative z-10">
+    <!-- Left Photobooth Photo -->
+    <div class="photobooth w-32 md:w-40">
+      <img src="photo1.jpg" alt="Photobooth photo 1" class="w-full rounded-sm">
+      <div class="text-center text-sm text-gray-600 mt-2 font-[Great+Vibes,cursive]">2nd photo booth with you</div>
+    </div>
+    <!-- Main Content Card -->
+    <div class="max-w-lg glassmorphic rounded-3xl shadow-2xl p-12 text-center transform transition-all hover:scale-105 duration-500 relative">
+      <h1 class="text-6xl font-[Great+Vibes,cursive] text-rose-800 mb-6 tracking-wide animate-text relative z-10">To My Dearest <span class="heart-icon">💖</span></h1>
+      <p class="text-gray-900 text-xl mb-8 leading-relaxed animate-text relative z-10 delay-100">
+        later nani
+      </p>
+      <video src="video.mp4" autoplay loop muted playsinline class="w-full rounded-xl mb-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10" alt="Our special moment"></video>
+      <p class="text-gray-700 text-lg italic animate-text relative z-10 delay-200 font-[Great+Vibes,cursive]">
+        Forever yours, EJ
+      </p>
+    </div>
+    <!-- Right Photobooth Photo -->
+    <div class="photobooth w-32 md:w-40">
+      <img src="photo2.jpg" alt="Photobooth photo 2" class="w-full rounded-sm">
+      <div class="text-center text-sm text-gray-600 mt-2 font-[Great+Vibes,cursive]">1st photo booth with you</div>
+    </div>
+  </div>
+
+  <script>
+    // Cursor heart trail
+    document.addEventListener('mousemove', (e) => {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = `${e.clientX - 6}px`;
+      sparkle.style.top = `${e.clientY - 6}px`;
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 600);
+    });
+
+    // Photo rain effect
+    const photos = [
+      'igat0.jpg',
+      'igat1.jpg',
+      'igat2.jpg',
+      'igat3.jpg',
+      'igat4.jpg'
+    ];
+    function createFallingPhoto() {
+      const photo = document.createElement('img');
+      photo.className = 'falling-photo';
+      photo.src = photos[Math.floor(Math.random() * photos.length)];
+      const swayDirection = Math.random() > 0.5 ? 1 : -1;
+      const rotateDirection = Math.random() > 0.5 ? 1 : -1;
+      photo.style.left = `${Math.random() * window.innerWidth}px`;
+      photo.style.top = `-${105 + Math.random() * 50}px`; // Adjusted for larger size
+      photo.style.setProperty('--sway-direction', swayDirection);
+      photo.style.setProperty('--rotate-direction', rotateDirection);
+      photo.style.animationDuration = `${12 + Math.random() * 5}s`;
+      photo.style.animationDelay = `${Math.random() * 1}s`;
+      // Log failed image loads for debugging
+      photo.onerror = () => console.error(`Failed to load image: ${photo.src}`);
+      document.body.appendChild(photo);
+      setTimeout(() => photo.remove(), 17000);
+    }
+    setInterval(createFallingPhoto, 1000);
+  </script>
+</body>
+</html>
